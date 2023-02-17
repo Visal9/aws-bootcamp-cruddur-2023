@@ -15,6 +15,7 @@ According to instruction I created gitpod workspace. it is easy if you can insta
 ![gitpod workspace](images/gitpod-workspace.png)
 
  I stored my Aws key and access key as env variables,  every time   launch new workspace gitpod will use these env variables. we can create env variable like below so it will persist in gitpod.
+ 
  ```
  gp env AWS_ACCESS_KEY_ID=#######
  gp env AWS_SECRET_KEY_ID=#######

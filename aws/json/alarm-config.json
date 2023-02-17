@@ -1,10 +1,10 @@
 
 {
-    "AlarmName": "AwsBootcamptedCharges",
+    "AlarmName": "visalBootcampCharges",
     "AlarmDescription": "This alarm would be triggered if the daily estimated charges exceeds 1$",
     "ActionsEnabled": true,
     "AlarmActions": [
-        "arn:aws:sns:us-east-1:202929503810:billing-alarm"
+        "arn:aws:sns:us-east-1:337789446943:visal-bootcamp-billing-alarm"
     ],
     "EvaluationPeriods": 1,
     "DatapointsToAlarm": 1,
