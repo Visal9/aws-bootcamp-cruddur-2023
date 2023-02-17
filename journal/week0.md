@@ -6,6 +6,7 @@
 - [x] Recreate Conceptual Diagram in Lucid Charts or on a Napkin.
 - [x] Recreate Logical Architectural Diagram in Lucid Charts.
 - [x] Create an Admin User
+- [x] Use Cloud shell 
  
 ## Setting up a billing alarm, budget and Configure AWS CLI
 
@@ -44,3 +45,7 @@ I created my budget and billing alarm using Aws cli. I will list each file I use
 Use Root user for doing work load is not recommended we should not use our root user to do our work load for that we must create user with `Administrator` access. I enable MFA so it will add additional security layer.
 
 ![admin-user](images/adminitrator-user-aws.png)
+
+##  Use Cloud shell 
+I used cloud shell to list all my instances
+![cloud-shell](images/aws-cloudshell.png)
