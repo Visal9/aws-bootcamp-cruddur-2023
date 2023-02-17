@@ -38,7 +38,7 @@ I created my budget and billing alarm using Aws cli. I will list each file I use
 
 - Create Logical diagram to communicate the architecture to key stakeholders [Lucid chart diagram link](https://lucid.app/lucidchart/07b99959-d9e4-4ed9-8677-6b910e4138cd/edit?viewport_loc=-470%2C124%2C2167%2C945%2C0_0&invitationId=inv_d5382893-44ef-4ac2-9a79-854a361a9359)
 
-![Conceptual Diagram](images/cruddur_logical_digram.png)
+![Conceptual Diagram](images/Cruddur-%20Logical%20Diagram.png)
 
 
 ##  Create an Admin User
