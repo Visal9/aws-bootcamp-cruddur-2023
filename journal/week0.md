@@ -48,4 +48,5 @@ Use Root user for doing work load is not recommended we should not use our root 
 
 ##  Use Cloud shell 
 I used cloud shell to list all my instances
+
 ![cloud-shell](images/aws-cloudshell.png)
