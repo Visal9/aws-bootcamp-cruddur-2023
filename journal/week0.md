@@ -72,7 +72,7 @@ I used the root account only to enable billing alarms and setup my other user. I
 This was most interesting homework because I heard of event bridge but I never used it before and had no idea how to do it. but I had an idea what SNS was because I already used it in my work and it this bootcamp also we create SNS topic for billing alarm. When I do research about  this homework  found this amazing [white paper](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html) created by Aws and I followed it to do this homework
 ![Event-bridge-rule](images/aws-event-bridge-health-issue.png)
 
-![Event bridge-sns](images/aws-event-bridge-sns.png)
+![Event bridge-sns](images/aws-event-bridge-sns-topic.png)
 
 #### Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts
 
