@@ -43,6 +43,6 @@ I created my budget and billing alarm using Aws cli. I will list each file I use
 
 
 ##  Create an Admin User
-Using Root user for doing work load is not recommended we should not use our root user to do our work load. For that we must create administrator user for do our workload and enable MFA so it will add additional security layer. I created an user with administrator privileges.
+Use Root user for doing work load is not recommended we should not use our root user to do our work load for that we must create user with `Adminitrator` access. I enable MFA so it will add additional security layer.
 
 ![admin-user](images/adminitrator-user-aws.png)
