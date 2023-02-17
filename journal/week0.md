@@ -2,14 +2,12 @@
 
 ## Homework Tasks
 
+- [x] Setting up a billing alarm, budget and Configure AWS CLI
 - [x] Recreate Conceptual Diagram in Lucid Charts or on a Napkin.
-- [x] Recreate Logical Architectual Diagram in Lucid Charts.
+- [x] Recreate Logical Architectural Diagram in Lucid Charts.
 - [x] Create an Admin User
-- [x] Installed AWS CLI
-- [x] Create a Billing Alarm
-- [x] Create a Budget
-  
-## Setting up a billing alarm and budget
+ 
+## Setting up a billing alarm, budget and Configure AWS CLI
 
 According to instruction i created gitpod workspace. it is easy if you can install gitpod extension in your web browser so git pod button will appear in your repository so you can easily created gitpod workspace by clicking that button.  Using the [gitpod.yaml](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/.gitpod.yml) script  found in the student help repository I was able to create a script that would install the AWS CLI on start.
 
@@ -43,6 +41,6 @@ I created my budget and billing alarm using Aws cli. I will list each file I use
 
 
 ##  Create an Admin User
-Use Root user for doing work load is not recommended we should not use our root user to do our work load for that we must create user with `Adminitrator` access. I enable MFA so it will add additional security layer.
+Use Root user for doing work load is not recommended we should not use our root user to do our work load for that we must create user with `Administrator` access. I enable MFA so it will add additional security layer.
 
 ![admin-user](images/adminitrator-user-aws.png)
