@@ -89,7 +89,7 @@ These are steps that need to follow to increase service limit
 2. Click on Aws services link in top left menu
 3. In search bar search for specific quota that you wish to increase(Amazon Elastic Compute Cloud in my case)
 4. Select which quota you need to increate(elastic ip in my case)
-5. check whether you can increase that quota in adjustable column if it says yes yo can request to increase quota
+5. check whether you can increase that quota, in adjustable column if it says yes you can request to increase quota
 6. click request quota increase
 7. Fill in your required value then click request 
 
