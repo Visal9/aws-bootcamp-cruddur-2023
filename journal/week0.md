@@ -40,3 +40,9 @@ I created my budget and billing alarm using Aws cli. I will list each file I use
 - Create Logical diagram to communicate the architecture to key stakeholders [Lucid chart diagram link](https://lucid.app/lucidchart/07b99959-d9e4-4ed9-8677-6b910e4138cd/edit?viewport_loc=-470%2C124%2C2167%2C945%2C0_0&invitationId=inv_d5382893-44ef-4ac2-9a79-854a361a9359)
 
 ![Conceptual Diagram](images/cruddur_logical_digram.png)
+
+
+##  Create an Admin User
+Using Root user for doing work load is not recommended we should not use our root user to do our work load. For that we must create administrator user for do our workload and enable MFA so it will add additional security layer. I created an user with administrator privileges.
+
+![admin-user](images/adminitrator-user-aws.png)
