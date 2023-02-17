@@ -74,9 +74,14 @@ This was most interesting homework because I heard of event bridge but I never u
 
 ![Event bridge-sns](images/aws-event-bridge-sns.png)
 
-### Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts
+#### Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts
 
-### Research the technical and service limits of specific services and how they could impact the technical path for technical flexibility.
+
+#### Review all the questions of each pillars in the Well Architected Tool (No specialized lens)
+I read some whitepapers about AWS-well-Architected-framework pillars. I opened the AWS Well-Architected Tool and reviewed the questions that it asks like in Andrew's youtube video
+
+![AWS-well-Architected-framework](images/AWS-well-architected-framework-pillars.png)
+#### Research the technical and service limits of specific services and how they could impact the technical path for technical flexibility.
 
 I reviewed the Service Quotas section in AWS to see the limits for each service. An example is  Number of Elastic IPs. Here is a screenshot showing some of the limits. Note that some quotas cannot be adjusted and it is mention it under adjustable Colum as yes or no.
 
