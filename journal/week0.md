@@ -12,11 +12,16 @@
 ## Setting up a billing alarm and budget
 
 According to instruction i created gitpod workspace. it is easy if you can install gitpod extension in your web browser so git pod button will appear in your repository so you can easily created gitpod workspace by clicking that button.  Using the [gitpod.yaml](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/.gitpod.yml) script  found in the student help repository I was able to create a script that would install the AWS CLI on start.
+
+![gitpod workspace](images/gitpod-workspace.png)
+
  I stored my aws key and access key as env variables,  every time   launch new workspace gitpod will use these env variables. we can create env variable like below so it will persist in gitpod.
  ```
  gp env AWS_ACCESS_KEY_ID=#######
  gp env AWS_SECRET_KEY_ID=#######
+ gp env AWS_DEFAULT_REGION=######
  ```
+ ![gitpod workspace](images/aws-key-gitpod-env-variable.png)
 
 I created my budget and billing alarm using Aws cli. I will list each file I used to create these alarm in below
 
