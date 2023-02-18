@@ -75,7 +75,9 @@ This was most interesting homework because I heard of event bridge but I never u
 ![Event bridge-sns](images/aws-event-bridge-sns-topic.png)
 
 #### Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts
+[Diagram link](https://lucid.app/lucidchart/4a051ca6-6496-4fd9-9ab9-1b8ce808e560/edit?viewport_loc=-11%2C-79%2C2219%2C1041%2C0_0&invitationId=inv_04241a06-bbff-46e0-af06-faeec367b977)
 
+![Ci/CD](images/ci-cd-diagram.png)
 
 #### Review all the questions of each pillars in the Well Architected Tool (No specialized lens)
 I read some whitepapers about AWS-well-Architected-framework pillars. I opened the AWS Well-Architected Tool and reviewed the questions that it asks like in Andrew's youtube video
