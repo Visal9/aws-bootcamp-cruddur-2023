@@ -186,4 +186,72 @@ networks:
 ![frontend-app](./images/front-ed-app-copose.png)
 
 
+##  Implementing notification feature (Backend and Front)
+
+### Implementing backend for notification feature
+
+#### Update open API document
+
+The reason for using open API is because we can easily import this to aws api-gateway in future , also used to test the API. The OpenAPI.yml file contains information about the API such as its endpoints, operations, parameters, and security definitions. It can also be used to generate documentation and client libraries for interacting with the API.
+
+1. First we need to add endpoint to notification so our frontend app can access notification data using this endpoint
+![add new endpoint](./images/open-api-add-new-path.png)
+![blank-endpoint](./images/open-api-balnk-api-enpoint.png)
+
+2. Create notification endpoint in [open API file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/openapi-3.0.yml)
+![noti-endpoint](./images/open-api-noti-endpoint.png)
+   
+
+#### Code explanation:
+/api/activities/notifications: when we make the API usually good to scope them with /api our application will be served on API, it will be like (api.crudder.com)
+
+description: Contain details about api endpoint
+
+tags: This will help to  group api endpoint
+
+responses: Indicate expected answers the server can give to this request
+
+application/json:  Describes the structure of the content a
+
+schema: Defines a data type of the response which can be a primitive (integer, string, …), an array or an object depending on its type field
+
+#### updating backed code
+1. In backend app we have to add route for notification feature in [app.py](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/app.py) like below
+![backent-app.py](./images/backend-noti-endpoint.png)
+
+2. Create [notification service](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/services/notifications_activities.py) in service folder
+
+![notificatin-service](./images/bckend-notification-service.png)
+
+
+3. Import newly created notification in  [app.py](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/app.py) file
+
+![iport-noti](./images/backend-import-noti-app.py.png)
+
+4. Run the app and check whether notification service will send response by accessing ```/api/activities/notification``` endpoint 
+
+![noti-api-respoce](./images/notification-api-response.png)
+
+
+
+
+## Implement notification feature in frontend
+
+1. First we have to create [notification page](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/src/pages/NotificationsFeedPage.js)
+
+![frontend-notification-page](./images/frontend-notification-page.png)
+
+2. Then styling notification page using [css file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/src/pages/NotificationsFeedPage.css)
+
+3. Then import our newly created notification page in [app.js file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/src/App.js)
+![import-app.js](./images/frontend-import-app.js.png)
+
+4. Now we are going to add a new path for notifications page in react
+![react-path-for-noti](./images/frontend-notification-path.png)
+
+5. now we can view the front end app by accessing ```/notification``` path
+![frontend-app](./images/front-ed-app-copose.png)
+
+
+
 
