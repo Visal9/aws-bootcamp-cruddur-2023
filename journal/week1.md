@@ -325,3 +325,48 @@ aws dynamodb put-item \
    We can connect to postgres using terminal by running following command
    
    ```psql –host localhost```
+
+
+   ## Challenges
+
+1. Run the docker CMD as an external script.
+
+We can create a script file where dockerfile is located and copy it to image wheen buildng image
+```./startup.sh /startup.sh```
+
+Then we can run it using CMD in docker file like below 
+
+```CMD ["/bin/bash","/startup.sh"]```
+
+this is useful we have many commands to run while building image instead of having many run files we can create a script and run them in single RUN
+
+2. Push and tag an image to docker hub
+- Login to docker hub
+![dockerhub-login](./images/docker-login.png)
+
+- Tagging images for docker hub
+  ![docker-tagging](./images/docker-taging-images.png)
+
+- pushing images to docker hub
+  ![pushing-images-dockerhub](./images/docker-pushing-images.png)
+
+- Docker images push successfully to docker hub
+  ![dockerhub-frontend-image](./images/dockerhub-frontend.png)
+   ![dockerhub-backend-image](./images/dockerhub-bcked.png)
+
+- I created docker repo in [quay.io](https://quay.io/) so I can do image scanning in there
+![quay-login](./images/quay.io%20login.png)
+
+- tagged images for quay repo
+![quay-image-tag](./images/qua-image-tagging.png)
+
+- push images to quay repo
+![quay-image-push](./images/quay-image-push.png)
+
+
+- Docker images push successfully to quay repo
+  ![quay-frontend](./images/quay-frontend.png)
+  ![quay-backend](./images/quay-backend.png)
+
+  ### Implement a health check in the V3 Docker compos file
+  
