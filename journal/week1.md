@@ -250,8 +250,78 @@ schema: Defines a data type of the response which can be a primitive (integer, s
 ![react-path-for-noti](./images/frontend-notification-path.png)
 
 5. now we can view the front end app by accessing ```/notification``` path
-![frontend-app](./images/front-ed-app-copose.png)
+
+ ![frontend-app](./images/front-ed-app-copose.png)
 
 
 
 
+## Adding DynamoDB Local and Postgres
+
+In future we are going to use Postgres and DynamoDB  We can bring them in as containers and reference them externally. Let’s integrate the following into our existing docker compose file
+
+1. Add DynamoDB Containers into [docker-compose file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yaml)
+![dynomodb](./images/dynomodb-compose.png)
+
+2. Add Postgres code into [docker-compose file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yaml)
+![postgres](./images/postgress-compose.png)
+
+3. We create docker volumes for Postgres and Dynamodb  so we won't loose data even though containers restart.
+4. Lets run these containers using ```docker-compose up``` command
+5. local dynamodb is a way that we can run dynamodb locally without spin up dynamodb instance in aws so we can test our app in locally. it is like a  running emulation of dynamodb 
+
+####Test Local Dynamodb
+
+##### Create table in Local Dynamodb
+
+```
+aws dynamodb create-table \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --attribute-definitions \
+        AttributeName=Artist,AttributeType=S \
+        AttributeName=SongTitle,AttributeType=S \
+    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --table-class STANDARD
+
+```
+
+  ![output](./images/create-dynamodb-table-output.png)
+
+##### Insert item to dynamodb
+
+```
+aws dynamodb put-item \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --item \
+        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
+    --return-consumed-capacity TOTAL  
+    
+```
+![put iem](./images/dynamodb-insert-output.png)
+#### List table in dynamodb
+``` aws dynamodb list-tables --endpoint-url http://localhost:8000```
+
+![list-tale](./images/dynamodb-llist-table.png)
+
+ ### Installing Postgres
+ To work with postgres we have to install Driver in our env. we cand add below code int o our gitpod.yaml [file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/.gitpod.yml)
+
+  ```
+   - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+  ```
+  After postgres Sql Extension in vscode we can add new connection
+  ![postgress-connect-window](./images/posgress-connect-window.png)
+   Connected successfully
+   ![postgress-success](./images/postgress-connectsuccesfully.png)
+
+   We can connect to postgres using terminal by running following command
+   
+   ```psql –host localhost```
