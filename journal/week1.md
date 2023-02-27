@@ -385,3 +385,56 @@ For Frontend also I implement [docker compose](https://github.com/Visal9/aws-boo
     
 ###  Research best practices of Dockerfile and attempt to implement it in your Dockerfile
 
+Documents I Followed:
+- Best practices for [dockerizing](https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/) Nodejs App 
+- best practices for [dockerizing](https://testdriven.io/blog/docker-best-practices/) Python app
+
+1. Scan docker images for vulnerabilities 
+- [Frontend vulnerability result](https://quay.io/repository/visal09/cruddur-backend/manifest/sha256:d42799fb116a7b59cc6c6dfcdfe95c6e09902a94cf019d6f81a9abec75acce68?tab=vulnerabilities)
+- [Backend vulnerability result](https://quay.io/repository/visal09/cruddur-backend/manifest/sha256:d42799fb116a7b59cc6c6dfcdfe95c6e09902a94cf019d6f81a9abec75acce68?tab=vulnerabilities)
+
+![backend-image-vuna](./images/quay-frontend-vuna.png)
+![frontend-image-vuna](./images/quayu-backend-vuna.png)
+
+
+
+#### Learn how to install Docker on your local machine and get the same containers running outside of GitPod/codeSpaces
+
+I installed docker on my ubuntu machine following this [document](https://docs.docker.com/engine/install/debian/)
+
+I spin up both backend and front end app using images in quay repository
+
+Pulling images
+![backend-image-pull](./images/quay-backend-local-docker.png)
+
+Running app locally
+![app-local](./images/docker-local-ls.png)
+
+Backend app 
+![backend](./images/docker-local-backend-response.png)
+
+Frontend app
+
+![local-frontend](./images/docker-local-frontend.png)
+
+
+### Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes
+
+1. Launch ec2 instance
+![launch-instance](./images/ecs-for-docker.png)
+
+2. Install docker by running ```sudo apt install docker.io```
+
+3. Running both apps using images in my  repository
+
+![backend-runnig](./images/ocker-ec2-backend-app.png)
+![frontend](./images/ec2-docker-frontendd-app.png)
+
+4. Update security groups for ec2 instance so our app can access globally
+
+![security-group](./images/ec2-security-group.png)
+ 
+5. Yay both apps are running
+ ![frontend-app](./images/ec2-frontend-pp.png)
+
+ ![backend-app](./images/ec2-backend-app.png)  
