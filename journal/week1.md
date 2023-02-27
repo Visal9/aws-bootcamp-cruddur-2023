@@ -366,7 +366,22 @@ this is useful we have many commands to run while building image instead of havi
 
 - Docker images push successfully to quay repo
   ![quay-frontend](./images/quay-frontend.png)
+
   ![quay-backend](./images/quay-backend.png)
 
   ### Implement a health check in the V3 Docker compos file
-  
+  I created a endpoint in backend as ```api/healthz``` so docker compose can perform health checks to that endpoint. I used [Docker Document](https://docs.docker.com/engine/reference/builder/#healthcheck) as e refence
+
+  I intentionally send server down response to check whether health check works fine
+
+  ![health-check](./images/backend-health-check-code.png)
+
+Docker compose health check works successfully
+  ![docker-compose-health-check](./images/docker-compose-health-check.png)
+
+For Frontend also I implement [docker compose](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yaml) health check
+
+![frontend-health-check](./images/dockercompose-frontend-healthcheck.png)
+    
+###  Research best practices of Dockerfile and attempt to implement it in your Dockerfile
+

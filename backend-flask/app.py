@@ -26,6 +26,10 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 
+@app.route("/api/healthz", methods=['GET'])
+def data_show_testsuccess():
+  return "OOps something wend wrong", 500
+
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
   user_handle  = 'andrewbrown'
