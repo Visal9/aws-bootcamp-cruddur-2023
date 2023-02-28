@@ -368,8 +368,12 @@ this is useful we have many commands to run while building image instead of havi
   ![quay-frontend](./images/quay-frontend.png)
 
   ![quay-backend](./images/quay-backend.png)
-
-  ### Implement a health check in the V3 Docker compos file
+  
+  ### Build multistage docker
+  I created multistage [docker file](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile-multistage) for frontend by following this [medium article](https://medium.com/geekculture/dockerizing-a-react-application-with-multi-stage-docker-build-4a5c6ca68166) 
+  
+  In here we build our frontend app using nodejs and after building we no longer needed nodejs so in next stage we get nginx image which is  way smaller image when compare to node and run react app using nginx image. 
+  ### Implement a health check in the V3 Docker compose file
   I created a endpoint in backend as ```api/healthz``` so docker compose can perform health checks to that endpoint. I used [Docker Document](https://docs.docker.com/engine/reference/builder/#healthcheck) as e refence
 
   I intentionally send server down response to check whether health check works fine
@@ -382,7 +386,8 @@ Docker compose health check works successfully
 For Frontend also I implement [docker compose](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yaml) health check
 
 ![frontend-health-check](./images/dockercompose-frontend-healthcheck.png)
-    
+
+
 ###  Research best practices of Dockerfile and attempt to implement it in your Dockerfile
 
 Documents I Followed:
@@ -395,6 +400,14 @@ Documents I Followed:
 
 ![backend-image-vuna](./images/quay-frontend-vuna.png)
 ![frontend-image-vuna](./images/quayu-backend-vuna.png)
+
+2. Don't run container as a root user 
+3. Always try to use official images
+4. Explicitly declare versions of the image otherwise it will use lates image     and  that may cause downtime because of updates
+5. use multistage docker file when creating images 
+6. Normally docker send everything in folder where docker file located using docker ignore we can avoid send unwanted files to build the image
+7. Always try to use Read only filesystem for volume with static data
+8. Labels are a great way to add metadata to your images and can be used for versioning, tracking, and other purposes.
 
 
 
