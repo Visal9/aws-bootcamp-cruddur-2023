@@ -1,5 +1,5 @@
 # Week 2 — Distributed Tracing
-
+ ## 1. Instrument Honeycomb with OTEL for the Cruddur App
 ### create Honeycomb ENV
 ![honey-env](./images/honeycomb-env.png)
 
@@ -50,7 +50,7 @@ Install packages using below command:
 
 #### Update [app.py](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/app.py)
 
-1. First Import OTl libraries
+1. First Import OTL libraries
 ```
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
@@ -78,6 +78,7 @@ app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 ```
+![edit](./images/honey-appypy-edit.png)
 
 4. Then do docker compose up
 
@@ -91,7 +92,7 @@ RequestsInstrumentor().instrument()
 ## Creating spans
  A trace is a collection of operations that represents a unique transaction handled by an application and its constituent services. A span represents a single operation within a trace we want to setup automatic instrumentation to tell us about that, so we need to add a bunch of Spans for each lets setup span in ```/api/home/activities```.
 
- According to  Honeycomb document page we will do the following to create a span:
+ According to  Honeycomb document we will do the following to create a span:
  
 ```
 from opentelemetry import trace ## this are going to use the open telemetry API
@@ -102,6 +103,11 @@ Now inside def run(), we will add the rest of code:
 ```
 with tracer.start_as_current_span("http-handler"):
 ```
+
+![span-1](./images/honey-home-span-1.png)
+![span-2](./images/honey-home-span-2.png)
+
+
 After run our app then go to ```/api/activities/home``` page and lets send some data to honey comb. as you can see there are two span
 ![data](./images/honey-span-data.png)
 
@@ -133,3 +139,7 @@ As you can see our custom attribute also available for queries that the power of
 
 Now let’s check the latency of this queries, by creating a new query, in Visualize add Heatmap (duration ms) also add P90 which means what is the numbers such that 90 of requests are faster that this, and run query
 ![query-example](./images/honey-query-example.png)
+
+
+
+## 2. Instrument  AWS X-Ray for the Cruddur App
