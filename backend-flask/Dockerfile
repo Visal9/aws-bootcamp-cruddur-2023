@@ -1,5 +1,5 @@
 # pull in the base image
-FROM python:3.12.0a5-slim
+FROM python:3.10-slim-buster
 
 # set the working directory of the container (aka guest operating system) - make a new folder(?)
 WORKDIR /backend-flask
