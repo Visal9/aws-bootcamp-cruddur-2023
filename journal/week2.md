@@ -143,3 +143,144 @@ Now let’s check the latency of this queries, by creating a new query, in Visua
 
 
 ## 2. Instrument  AWS X-Ray for the Cruddur App
+
+```
+export AWS_REGION="us-east-1"
+gp env AWS_REGION="us-east-1"
+```
+
+ Update ```requirements.txt```
+
+```
+aws-xray-sdk
+```
+Install pythonpendencies
+```
+pip install -r requirements.txt
+```
+
+Update  ```app.py``` with below code
+
+```
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+#### Setup AWS X-Ray Resources
+
+Add ```aws/json/xray.json```
+```
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "Cruddur",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
+
+Create new X-Ray group
+
+```
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"backend-flask\")"
+```
+
+X-ray group created successfully
+
+![x-ray-group-res](./images/x-ray-group.png)
+
+Below you can see caws console view of x-ray group
+![x-ray-group-console](./images/x-ray-group-aws-console.png)
+
+Then created sampling rule with below command
+
+```
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+![sample-x-ray](./images/x-ray-sampling-rule.png)
+![sample-console](./images/x-ray-aws-sampling-ruls-aws-console.png)
+
+#### x-ray Daemon setup
+
+This command implemented if we want to install it onto our environment.
+
+```
+wget https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.deb
+
+sudo dpkg -i **.deb
+```
+following above command we can setup x-ray daemon in local env but in our case we will run it as a container because when we run this app on ECS we have to run it as a container so lets update our compose file with below command
+
+```
+ xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+
+Add below env vars to compose file backend environment
+
+```
+AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
+
+Lets do compose up
+
+By viewing the x-ray logs in container, we can confirm segments successfully sent message
+![compose](./images/xray-send-segment-cli.png)
+
+Go to AWS console and check the  for Traces
+![xray-traces](./images/x-xray-traces-aws-console.png)
+
+Evidenced that X-Ray trace appeared in AWS X-Ray console when clicked on Traces
+![service-map](./images/x-ray-service-map.png)
+
+#### create subsegment in x-ray
+
+Lets add x-ray sub segment to user activity endpoint
+
+add below import statement
+```
+from aws_xray_sdk.core import xray_recorder
+```
+
+Let's add subsegment by adding below codes
+```
+ #   dict = {
+    #     "now": now.isoformat(),
+    #     "results-size": len(model['data'])
+    #   }
+    #   subsegment.put_metadata('key', dict, 'namespace')
+    #   xray_recorder.end_subsegment()
+```
+
+Then close sub segment using blow code
+```
+#   xray_recorder.end_subsegment()
+```
+
+Lets add capture to our appp.py file by adding below command to user activity endpoint
+```
+@xray_recorder.capture('activities_users')
+```
+![sub-segment](./images/x-ray-capture.png)
