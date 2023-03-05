@@ -265,18 +265,18 @@ from aws_xray_sdk.core import xray_recorder
 ```
 
 Let's add subsegment by adding below codes
-```
- #   dict = {
-    #     "now": now.isoformat(),
-    #     "results-size": len(model['data'])
-    #   }
-    #   subsegment.put_metadata('key', dict, 'namespace')
-    #   xray_recorder.end_subsegment()
+```py
+    dict = {
+         "now": now.isoformat(),
+         "results-size": len(model['data'])
+       }
+       subsegment.put_metadata('key', dict, 'namespace')
+       xray_recorder.end_subsegment()
 ```
 
 Then close sub segment using blow code
-```
-#   xray_recorder.end_subsegment()
+```py
+   xray_recorder.end_subsegment()
 ```
 
 Lets add capture to our appp.py file by adding below command to user activity endpoint
@@ -284,3 +284,79 @@ Lets add capture to our appp.py file by adding below command to user activity en
 @xray_recorder.capture('activities_users')
 ```
 ![sub-segment](./images/x-ray-capture.png)
+
+
+
+## 1. Instrument CloudWatch for the Cruddur App
+Add to the `requirements.txt`
+
+```
+watchtower
+```
+
+```sh
+pip install -r requirements.txt
+```
+
+
+Update `app.py` file
+
+```
+import watchtower
+import logging
+from time import strftime
+```
+
+```py
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
+```
+
+above code snippet will create log group named Cruddur in cloudWatch with handler
+
+below code snippet create log error after every request
+```py
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+We'll log something in an API endpoint
+
+update ```/actvitiest/home``` route in ```app.py``` like below
+![cloudwath-log](./images/cloudwath-activit-route.png)
+
+Add following to home activities page
+
+```py
+def run(Logger):
+    logger.info("HomeActivites")
+```
+![cloudwath-home](./images/cloudwatch-home-activity.png)
+
+
+Set the env var in your backend-flask for `docker-compose.yml`
+
+```yml
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+View logs in cloud watch
+
+CloudWatch logs group
+![cloudwath-](./images/cloudwath-log-group.png)
+
+CloudWatch Logs streams
+![cloudwath-console](./images/cloudwatch-log-view.png)
+
+> passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
