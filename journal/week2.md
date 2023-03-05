@@ -287,7 +287,7 @@ Lets add capture to our appp.py file by adding below command to user activity en
 
 
 
-## 1. Instrument CloudWatch for the Cruddur App
+## 3. Instrument CloudWatch for the Cruddur App
 Add to the `requirements.txt`
 
 ```
@@ -360,3 +360,86 @@ CloudWatch Logs streams
 ![cloudwath-console](./images/cloudwatch-log-view.png)
 
 > passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
+
+
+## 4. Instrument CloudWatch for the Cruddur App
+
+Update requirement.txt file with below two packages
+
+```
+blinker
+rollbar
+```
+
+Lets intall requirement  by running below command
+```
+pip install -r requirements.txt
+```
+
+Set Rollbar access token as env variable
+
+```
+export ROLLBAR_ACCESS_TOKEN="135ec44feaxxxxxxxxxx9268aa5d7a00"
+gp env ROLLBAR_ACCESS_TOKEN="135ec44feaxxxxxxxxxx9268aa5d7a00"
+```
+
+we can find Rollbar access token in this page
+![rllbar-token](./images/rollbar-accesstoken.png)
+
+Lets update our app.py with Rollbar
+
+import statements
+
+```py
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+
+```
+
+intialize rollbar using below command in ```app.py`` file
+
+```py
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+```
+
+Add endpoint for Rollbar in app.py for testing
+```py
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+Then add  ROLLBAR_ACCESS_TOKEN env var to backend-flask service in ```docker-compose.yml```
+
+```yml
+ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+```
+
+lets do compose up and check Rollbar endpoint
+
+![rollbar-endpoint](./images/roll-bar-route-view.png)
+
+Lets go to rollbar and check whether our log recieved or not
+
+![rollbar-ui](./images/rollbar-data-receive.png)
+![rollbar-log-inside](./images/roll-bar-log-inside-view.png)
+
+As you can see our log rcieved to rollbar successfully
