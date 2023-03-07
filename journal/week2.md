@@ -361,6 +361,13 @@ CloudWatch Logs streams
 
 > passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
 
+### AWS XRay Traces and Segments for notification page
+I added xray segment for [notification](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/services/notifications_activities.py) page.
+Here is the segment timeline and metadata for Notification service segment
+
+![custom-segment-noti](./images/xray-custom-noti-segmentt.png)
+
+
 
 ## 4. Instrument CloudWatch for the Cruddur App
 
