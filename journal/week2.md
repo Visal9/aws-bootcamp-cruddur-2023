@@ -443,3 +443,11 @@ Lets go to rollbar and check whether our log recieved or not
 ![rollbar-log-inside](./images/roll-bar-log-inside-view.png)
 
 As you can see our log rcieved to rollbar successfully
+
+#### Rollbar Test on Error
+Like Andrew's telling in video  created error intentionally by removing ```return`` statement in home.activies.py
+Then visit that page to generate error so we can confirm rollbar work fine
+got an error in browser window 
+As you can see in below error was recorded in Rollbar
+
+![rollbar-error](./images/rollbar-error-generate.png)
