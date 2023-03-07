@@ -361,11 +361,6 @@ CloudWatch Logs streams
 
 > passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
 
-### AWS XRay Traces and Segments for notification page
-I added xray segment for [notification](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/services/notifications_activities.py) page.
-Here is the segment timeline and metadata for Notification service segment
-
-![custom-segment-noti](./images/xray-custom-noti-segmentt.png)
 
 
 
@@ -450,6 +445,13 @@ Lets go to rollbar and check whether our log recieved or not
 ![rollbar-log-inside](./images/roll-bar-log-inside-view.png)
 
 As you can see our log rcieved to rollbar successfully
+## streached homework
+### AWS XRay Traces and Segments for notification page
+
+I added xray segment for [notification](https://github.com/Visal9/aws-bootcamp-cruddur-2023/blob/main/backend-flask/services/notifications_activities.py) page.
+Here is the segment timeline and metadata for Notification service segment
+
+![custom-segment-noti](./images/xray-custom-noti-segmentt.png)
 
 #### Rollbar Test on Error
 Like Andrew's telling in video  created error intentionally by removing ```return`` statement in home.activies.py
@@ -458,3 +460,7 @@ got an error in browser window
 As you can see in below error was recorded in Rollbar
 
 ![rollbar-error](./images/rollbar-error-generate.png)
+
+
+HoneyComb Save Queries
+saved the query created during the class: Heatmap saved [query](./images/honey-query-example.png)
